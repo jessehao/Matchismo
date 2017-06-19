@@ -1,0 +1,16 @@
+//
+//  main.m
+//  Matchismo
+//
+//  Created by 郝泽 on 2017/3/23.
+//  Copyright © 2017年 JesseHao. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "AppDelegate.h"
+
+int main(int argc, char * argv[]) {
+    @autoreleasepool {
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+    }
+}
