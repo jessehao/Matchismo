@@ -6,9 +6,10 @@
 //  Copyright © 2017年 JesseHao. All rights reserved.
 //
 
-#import "PlayingCardDeck.h"
+#import "Deck.h"
 #import "Card.h"
 #import "CardMatchingGame.h"
+#import "PlayingCard.h"
 
 @interface CardMatchingGame()
 
@@ -26,19 +27,24 @@
     if (matchCount > 1) {
         _matchCount = matchCount;
     } else {
-        _matchCount = 2;
-    }
+        _matchCount = 2;    }
 }
 
 -(NSUInteger)matchCount{
+
     if (_matchCount < 2) {
         _matchCount = 2;
     }
     return _matchCount;
 }
 
--(instancetype)initWithCardCount:(NSUInteger)count usingDeck:(PlayingCardDeck *)deck{
+-(instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck{
     self = [super initWithCardCount:count usingDeck:deck];
+    return self;
+}
+
+-(instancetype)initWithCardCount:(NSUInteger)count{
+    self = [self initWithCardCount:count usingDeck:[PlayingCard createPlayingCardDeck]];
     return self;
 }
 

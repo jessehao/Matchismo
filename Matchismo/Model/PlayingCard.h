@@ -7,6 +7,7 @@
 //
 
 #import "Card.h"
+#import "Deck.h"
 
 @interface PlayingCard : Card
 
@@ -15,6 +16,6 @@
 
 +(NSArray *)validSuits;
 +(NSUInteger)maxRank;
-
++(Deck *)createPlayingCardDeck;
 
 @end

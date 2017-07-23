@@ -27,6 +27,19 @@
     return [self rankStrings].count-1;
 }
 
++(Deck *)createPlayingCardDeck{
+    Deck* deck = [[Deck alloc] init];
+    for(NSString *suit in [PlayingCard validSuits]){
+        for( NSUInteger rank = 1; rank <= [PlayingCard maxRank]; rank++){
+            PlayingCard *card = [[PlayingCard alloc] init];
+            card.rank = rank;
+            card.suit = suit;
+            [deck addCard:card];
+        }
+    }
+    return deck;
+}
+
 -(void)setRank:(NSUInteger)rank{
     if (rank <= [PlayingCard maxRank]) {
         _rank = rank;

@@ -12,4 +12,6 @@
 
 @property(nonatomic) NSUInteger matchCount;
 
+-(instancetype)initWithCardCount:(NSUInteger)count;
+
 @end

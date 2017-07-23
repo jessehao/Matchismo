@@ -11,10 +11,7 @@
 #import "Deck.h"
 #import "Card.h"
 
-@interface CardGame : NSObject{
-    @protected
-    NSInteger _score;
-}
+@interface CardGame : NSObject
 @property(nonatomic) NSInteger score;
 @property(nonatomic, strong) NSMutableArray *cards;
 @property(nonatomic, strong) NSMutableArray *chosenCards;
