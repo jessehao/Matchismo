@@ -8,8 +8,9 @@
 // Abstract Class. Must implement methods as  described below
 
 #import <Foundation/Foundation.h>
-#import "Deck.h"
-#import "Card.h"
+
+@class Deck;
+@class Card;
 
 @interface CardGame : NSObject
 @property(nonatomic) NSInteger score;
@@ -20,8 +21,9 @@
 -(instancetype)initWithCardCount: (NSUInteger)count
                        usingDeck: (Deck *) deck;
 
-//Protected
+-(Card *)cardAtIndex: (NSUInteger)index;
+
+#pragma MARK : Protected Methods
 -(void)chooseCardAtIndex: (NSUInteger)index;    // abstract
--(Card *)cardAtIndex: (NSUInteger)index;    // abstract
 
 @end

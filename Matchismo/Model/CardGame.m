@@ -7,6 +7,8 @@
 //
 
 #import "CardGame.h"
+#import "Deck.h"
+#import "Card.h"
 
 @interface CardGame()
 
@@ -45,10 +47,17 @@
     return self;
 }
 
-//abstract
--(void)chooseCardAtIndex:(NSUInteger)index { return; }
+- (void)chooseCardAtIndex:(NSUInteger)index { return; } //abstract
 
-//abstract
--(Card *)cardAtIndex:(NSUInteger)index { return nil; }
+- (Card *)cardAtIndex:(NSUInteger)index{
+    Card *result = nil;
+    if(index < self.cards.count){
+        result = self.cards[index];
+        if(![result isKindOfClass:[Card class]]){
+            result = nil;
+        }
+    }
+    return result;
+}
 
 @end

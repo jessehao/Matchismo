@@ -7,10 +7,11 @@
 //
 
 #import "Deck.h"
+#import "Card.h"
 
 @interface Deck()
 
-@property(strong, nonatomic) NSMutableArray *cards;
+@property(strong, nonatomic) NSMutableArray<Card *> *cards;
 
 @end
 

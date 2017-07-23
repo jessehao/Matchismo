@@ -8,6 +8,8 @@
 
 #import "CardGameViewController.h"
 #import "Model/CardMatchingGame.h"
+#import "Deck.h"
+#import "Card.h"
 @interface CardGameViewController ()
 
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;

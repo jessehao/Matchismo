@@ -20,7 +20,7 @@
 
 @synthesize matchCount = _matchCount;
 
--(void)setMatchCount:(NSUInteger)matchCount{
+- (void)setMatchCount:(NSUInteger)matchCount{
     if (self.isStarted) {
         return;
     }
@@ -30,7 +30,7 @@
         _matchCount = 2;    }
 }
 
--(NSUInteger)matchCount{
+- (NSUInteger)matchCount{
 
     if (_matchCount < 2) {
         _matchCount = 2;
@@ -38,12 +38,12 @@
     return _matchCount;
 }
 
--(instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck{
+- (instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck{
     self = [super initWithCardCount:count usingDeck:deck];
     return self;
 }
 
--(instancetype)initWithCardCount:(NSUInteger)count{
+- (instancetype)initWithCardCount:(NSUInteger)count{
     self = [self initWithCardCount:count usingDeck:[PlayingCard createPlayingCardDeck]];
     return self;
 }
@@ -52,7 +52,7 @@ static const int COST_TO_CHOOSE = 1;
 static const int MATCH_BONUS = 4;
 static const int MISMATCH_PENALTY = 2;
 
--(void)chooseCardAtIndex:(NSUInteger)index{
+- (void)chooseCardAtIndex:(NSUInteger)index{
     self.started = YES;
     Card *card = [self cardAtIndex:index];
     if(!card.isMatched){
@@ -93,17 +93,6 @@ static const int MISMATCH_PENALTY = 2;
             self.score -= COST_TO_CHOOSE;
         }
     }
-}
-
--(Card *)cardAtIndex:(NSUInteger)index{
-    Card *result = nil;
-    if(index < self.cards.count){
-        result = self.cards[index];
-        if(![result isKindOfClass:[Card class]]){
-            result = nil;
-        }
-    }
-    return result;
 }
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "Card.h"
-#import "Deck.h"
+@class Deck;
 
 @interface PlayingCard : Card
 
