@@ -17,6 +17,7 @@
 
 @implementation Deck
 
+#pragma mark - Getter & Setter
 //这里只是重写了Getter，没有重写Setter，所以不用写@synthesize
 -(NSMutableArray *)cards{
     if(!_cards)
@@ -24,6 +25,7 @@
     return _cards;
 }
 
+#pragma mark - Methods
 -(void)addCard:(Card *)card atTop:(BOOL)atTop{
     if (atTop) {
         [self.cards insertObject:card atIndex:0];

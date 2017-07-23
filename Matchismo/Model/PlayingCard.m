@@ -11,11 +11,32 @@
 
 @implementation PlayingCard
 
+#pragma mark - Getter & Setter
+
+@synthesize suit = _suit;
+
 -(NSString *)contents{
     NSArray *rankString = [PlayingCard rankStrings];
     return [rankString[self.rank] stringByAppendingString:self.suit];
 }
 
+-(void)setRank:(NSUInteger)rank{
+    if (rank <= [PlayingCard maxRank]) {
+        _rank = rank;
+    }
+}
+
+-(void)setSuit:(NSString *)suit{
+    if ([[PlayingCard validSuits] containsObject:suit]) {
+        _suit = suit;
+    }
+}
+
+-(NSString *)suit{
+    return _suit ? _suit : @"?";
+}
+
+#pragma mark - Methods
 +(NSArray *)validSuits{
     return @[@"♥︎", @"♦︎", @"♠︎", @"♣︎"];
 }
@@ -28,37 +49,20 @@
     return [self rankStrings].count-1;
 }
 
-+(Deck *)createPlayingCardDeck{
-    Deck* deck = [[Deck alloc] init];
-    for(NSString *suit in [PlayingCard validSuits]){
-        for( NSUInteger rank = 1; rank <= [PlayingCard maxRank]; rank++){
-            PlayingCard *card = [[PlayingCard alloc] init];
-            card.rank = rank;
-            card.suit = suit;
-            [deck addCard:card];
-        }
-    }
-    return deck;
-}
+//+(Deck *)createPlayingCardDeck{
+//    Deck* deck = [[Deck alloc] init];
+//    for(NSString *suit in [PlayingCard validSuits]){
+//        for( NSUInteger rank = 1; rank <= [PlayingCard maxRank]; rank++){
+//            PlayingCard *card = [[PlayingCard alloc] init];
+//            card.rank = rank;
+//            card.suit = suit;
+//            [deck addCard:card];
+//        }
+//    }
+//    return deck;
+//}
 
--(void)setRank:(NSUInteger)rank{
-    if (rank <= [PlayingCard maxRank]) {
-        _rank = rank;
-    }
-}
-
-@synthesize suit = _suit;
-
--(void)setSuit:(NSString *)suit{
-    if ([[PlayingCard validSuits] containsObject:suit]) {
-        _suit = suit;
-    }
-}
-
--(NSString *)suit{
-    return _suit ? _suit : @"?";
-}
-
+#pragma mark Instance
 -(int)match:(NSArray *)otherCards{
     int score = 0;
     for (PlayingCard *card in otherCards) {

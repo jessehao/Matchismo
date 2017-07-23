@@ -6,9 +6,8 @@
 //  Copyright © 2017年 JesseHao. All rights reserved.
 //
 
-#import "Deck.h"
-#import "Card.h"
 #import "CardMatchingGame.h"
+#import "PlayingCardDeck.h"
 #import "PlayingCard.h"
 
 @interface CardMatchingGame()
@@ -17,7 +16,7 @@
 
 @implementation CardMatchingGame
 
-
+#pragma mark - Getter & Setter
 @synthesize matchCount = _matchCount;
 
 - (void)setMatchCount:(NSUInteger)matchCount{
@@ -38,20 +37,16 @@
     return _matchCount;
 }
 
-- (instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck{
-    self = [super initWithCardCount:count usingDeck:deck];
-    return self;
-}
-
+#pragma mark - Initializer
 - (instancetype)initWithCardCount:(NSUInteger)count{
-    self = [self initWithCardCount:count usingDeck:[PlayingCard createPlayingCardDeck]];
+    self = [super initWithCardCount:count usingDeck:[[PlayingCardDeck alloc] init]];
     return self;
 }
 
-static const int COST_TO_CHOOSE = 1;
-static const int MATCH_BONUS = 4;
-static const int MISMATCH_PENALTY = 2;
+#pragma mark - Methods
 
+
+#pragma mark Override
 - (void)chooseCardAtIndex:(NSUInteger)index{
     self.started = YES;
     Card *card = [self cardAtIndex:index];

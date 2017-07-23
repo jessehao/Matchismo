@@ -10,11 +10,13 @@
 
 @interface Card : NSObject
 
+#pragma mark - Properties
 @property (strong, nonatomic) NSString* contents;
 
 @property (nonatomic, getter=isChosen) BOOL chosen;
 @property (nonatomic, getter=isMatched) BOOL matched;
 
+#pragma mark - Methods
 - (int)match:(NSArray *)otherCards;
 
 @end

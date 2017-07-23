@@ -8,12 +8,31 @@
 // Abstract Class. Must implement methods as  described below
 
 #import <UIKit/UIKit.h>
-#import "Model/Deck.h"
-@interface CardGameViewController : UIViewController
 
-// protected
+@class CardGame;
+@class Deck;
+@class Card;
 
-- (Deck *)createDeck; // abstract
+@interface CardGameViewController : UIViewController{
+    @protected
+    CardGame *_game;
+    Deck *_deck;
+}
+#pragma mark - Properties
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (weak, nonatomic) IBOutlet UIButton *restartButton;
+
+@property (nonatomic, strong) CardGame *game;
+@property (strong, nonatomic) Deck *deck;
+
+#pragma mark - Methods
+- (NSString *)titleForCard: (Card *)card;
+- (UIImage *)backgroundImageForCard: (Card *)card;
+
+#pragma mark Abstract
+- (Deck *)createDeck;
+- (void)updateUI;
 
 @end
 

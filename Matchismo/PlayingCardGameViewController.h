@@ -8,6 +8,11 @@
 
 #import "CardGameViewController.h"
 
+@class CardMatchingGame;
+
 @interface PlayingCardGameViewController : CardGameViewController
+
+#pragma mark - Properties
+@property(nonatomic, strong, readonly) CardMatchingGame *matchingGame;
 
 @end

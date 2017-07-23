@@ -11,6 +11,7 @@
 
 @interface Deck : NSObject
 
+#pragma mark - Methods
 -(void) addCard:(Card *)card atTop:(BOOL)atTop;
 -(void) addCard:(Card *)card;
 

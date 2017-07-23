@@ -11,11 +11,13 @@
 
 @interface PlayingCard : Card
 
+#pragma mark - Properties
 @property (nonatomic, strong) NSString *suit;
 @property (nonatomic) NSUInteger rank;
 
+#pragma mark - Methods
 +(NSArray *)validSuits;
 +(NSUInteger)maxRank;
-+(Deck *)createPlayingCardDeck;
+//+(Deck *)createPlayingCardDeck;
 
 @end
