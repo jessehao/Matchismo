@@ -35,6 +35,7 @@
 - (BOOL)mapCard:(Card *)card toView:(CardView *)view {
     if (![card isKindOfClass:[SetCard class]] ||
         ![view isKindOfClass:[SetCardView class]]) {
+        NSLog(@"CANNOT MAP SET CARD TO SET CARD VIEW");
         return NO;
     }
     SetCardView *scView = (SetCardView *)view;
@@ -43,46 +44,18 @@
     scView.shading = sCard.shading;
     scView.color = sCard.color;
     scView.number = sCard.number;
-    if (scView.enabled == YES && sCard.isMatched == YES) {
-        scView.enabled = NO;
-        [self popCardView:scView];
-    } else if (!sCard.isMatched) {
-        scView.enabled = YES;
-    }
     scView.selected = sCard.isChosen;
+    scView.enabled = !sCard.isMatched;
     return YES;
 }
 
 #pragma mark - Actions
 #pragma mark Storyboard
-- (IBAction)edgePan:(UIScreenEdgePanGestureRecognizer *)sender { // Testing
+- (IBAction)edgePan:(UIScreenEdgePanGestureRecognizer *)sender {
     if (sender.state ==UIGestureRecognizerStateEnded) {
-//        if ([self.setGame requestCards]) {
-//            [self addNewCards];
-//        }
-        [self pushCardView:nil atIndex:3];
-    }
-}
-
-#pragma mark - Operations
-- (void)addNewCards {
-    if (!self.setGame.newCards.count)
-        return;
-    self.grid.minimumNumberOfCells += self.setGame.newCards.count;
-    if (![self.grid inputsAreValid]) {
-        NSLog(@"%@ : Grid Inputs Not Valid", self);
-        return;
-    }
-    for (SetCard *card in self.setGame.newCards) {
-        CGRect frame = CGRectMake(0, 0, self.grid.cellSize.width, self.grid.cellSize.height);
-        SetCardView *newCardView = [[SetCardView alloc] initWithFrame:frame];
-        if (![self mapCard:card toView:newCardView]) {
-            NSLog(@"%@ : CANNOT MAP MODEL TO VIEW", self);
-            return;
+        if ([self.setGame requestCards]) {
+            [self updateUI];
         }
-        [self.cardViews addObject:newCardView];
-        NSUInteger index = self.cardViews.count - 1;
-        [self pushCardView:newCardView atIndex:index];
     }
 }
 
