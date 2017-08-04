@@ -12,27 +12,31 @@
 @class CardGame;
 @class Deck;
 @class Card;
+@class CardView;
+@class Grid;
 
-@interface CardGameViewController : UIViewController{
-    @protected
-    CardGame *_game;
-    Deck *_deck;
-}
-#pragma mark - Properties
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+
+@interface CardGameViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UIView *boardView;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UIButton *restartButton;
 
-@property (nonatomic, strong) CardGame *game;
-@property (strong, nonatomic) Deck *deck;
+@property (strong, nonatomic) CardGame *game;
+@property (strong, nonatomic) NSMutableArray<CardView *> *cardViews;
+@property (strong, nonatomic, readonly) Grid  *grid;
+- (CGRect)mainViewBounds;
 
-#pragma mark - Methods
-- (NSString *)titleForCard: (Card *)card;
-- (UIImage *)backgroundImageForCard: (Card *)card;
+#pragma mark - Operations
+- (void)updateUI;
+- (void)pushCardView:(CardView *)cardView atIndex:(NSUInteger)index;
+- (BOOL)popCardView:(CardView *)cardView;
 
 #pragma mark Abstract
-- (Deck *)createDeck;
-- (void)updateUI;
+- (CardView *)newCardViewWithFrame:(CGRect)frame;
+- (void)setup;
+- (void)setupBoard;
+- (BOOL)mapCard:(Card *)card toView:(CardView *)view;
 
 @end
 

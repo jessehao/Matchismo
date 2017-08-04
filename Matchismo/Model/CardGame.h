@@ -19,10 +19,11 @@ static const int MISMATCH_PENALTY = 2;
 @interface CardGame : NSObject
 
 #pragma mark - Properties
-@property(nonatomic) NSInteger score;
-@property(nonatomic, strong) NSMutableArray *cards;
-@property(nonatomic, strong) NSMutableArray *chosenCards;
-@property(nonatomic, getter=isStarted) BOOL started;
+@property (nonatomic) NSInteger score;
+@property (strong, nonatomic) NSMutableArray *cards;
+@property (strong, nonatomic) NSMutableArray *chosenCards;
+@property (nonatomic, getter=isStarted) BOOL started;
+@property (strong, nonatomic, readonly) Deck *deck;
 
 #pragma mark - Initializer
 //designate initializer

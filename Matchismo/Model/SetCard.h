@@ -7,32 +7,18 @@
 //
 
 #import "Card.h"
-
-typedef enum {
-    SCShadingSolid = 0,
-    SCShadingStriped = 1,
-    SCShadingOpen = 2
-}SCShadingType;
-
-typedef enum{
-    SCColorRed = 0,
-    SCColorGreen = 1,
-    SCColorPurple = 2
-}SCColorType;
+#import "../Enums.h"
 
 @interface SetCard : Card
 #pragma mark - Properties
 @property(nonatomic, readonly) NSUInteger number;
-@property(nonatomic, strong, readonly) NSString *symbol;
+@property(nonatomic, readonly) SCSymbolType symbol;
 @property(nonatomic, readonly) SCShadingType shading;
 @property(nonatomic, readonly) SCColorType color;
 
 #pragma mark - Initializer
 - (instancetype)initWithNumber:(NSUInteger)number
-                        symbol:(NSString *)symbol
+                        symbol:(SCSymbolType)symbol
                        shading:(SCShadingType)shading
                          color:(SCColorType)color;
-
-#pragma mark - Methods
-+ (NSArray *)validSymbol;
 @end

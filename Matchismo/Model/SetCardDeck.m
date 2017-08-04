@@ -16,7 +16,7 @@
     self = [super init];
     if(self)
         for(int number = 1; number <= 3; number++)
-            for(NSString *symbol in [SetCard validSymbol])
+            for(int symbol = 0; symbol < 3; symbol++)
                 for(int color = 0; color < 3; color++)
                     for(int shading = 0; shading < 3; shading++)
                         [self addCard:[[SetCard alloc] initWithNumber:number

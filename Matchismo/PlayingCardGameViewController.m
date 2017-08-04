@@ -7,23 +7,24 @@
 //
 
 #import "PlayingCardGameViewController.h"
+#import "PlayingCardView.h"
 #import "CardMatchingGame.h"
 #import "PlayingCardDeck.h"
 #import "PlayingCard.h"
+#import "Grid.h"
 
-@interface PlayingCardGameViewController ()
-
-#pragma mark - Properties
+@interface PlayingCardGameViewController () 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *gameModeSegmentedController;
-
 @end
 
 @implementation PlayingCardGameViewController
 
+@synthesize game = _game;
+
 #pragma mark - Getter & Setter
 - (CardGame *)game{
     if (!_game) {
-        CardMatchingGame *matchingGame = [[CardMatchingGame alloc] initWithCardCount:self.cardButtons.count];
+        CardMatchingGame *matchingGame = [[CardMatchingGame alloc] initWithCardCount:PLAYING_CARD_GAME_INITIAL_CARD_NUMBER];
         matchingGame.matchCount = self.gameModeSegmentedController.selectedSegmentIndex + 2;
         _game = matchingGame;
     }
@@ -31,33 +32,34 @@
 }
 
 - (CardMatchingGame *)matchingGame{
-    return (CardMatchingGame *)_game;
+    return (CardMatchingGame *)self.game;
 }
 
-#pragma mark - Methods
-#pragma mark Override
--(Deck *)createDeck{
-    return [[PlayingCardDeck alloc] init];
-}
+#pragma mark - Override
+- (CardView *)newCardViewWithFrame:(CGRect)frame { return [[PlayingCardView alloc] initWithFrame:frame]; }
 
 - (void)updateUI{
     self.gameModeSegmentedController.hidden = self.game.isStarted;
-    self.restartButton.hidden = !self.game.isStarted;
-    for (UIButton *cardButton in self.cardButtons) {
-        if([cardButton isMemberOfClass:[UIButton class]]){
-            NSUInteger cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
-            Card *card = [self.game cardAtIndex:cardButtonIndex];
-            [cardButton setTitle:[self titleForCard: card] forState:UIControlStateNormal];
-            [cardButton setBackgroundImage:[self backgroundImageForCard: card] forState:UIControlStateNormal];
-            cardButton.enabled = !card.isMatched;
-            self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
-        }
-    }
+    [super updateUI];
 }
 
-#pragma mark StoryBoard Actions
+- (BOOL)mapCard:(Card *)card toView:(CardView *)view {
+    if (![card isKindOfClass:[PlayingCard class]] ||
+        ![view isKindOfClass:[PlayingCardView class]]) {
+        return NO;
+    }
+    PlayingCardView *pcView = (PlayingCardView *)view;
+    PlayingCard *pCard = (PlayingCard *)card;
+    pcView.rank = pCard.rank;
+    pcView.suit = pCard.suit;
+    pcView.selected = pCard.isChosen;
+    pcView.enabled = !pCard.isMatched;
+    return YES;
+}
+
+#pragma mark - Actions
+#pragma mark Storyboard
 - (IBAction)changeSegmentedControl:(UISegmentedControl *)sender {
     self.matchingGame.matchCount = sender.selectedSegmentIndex + 2;
 }
-
 @end

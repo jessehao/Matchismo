@@ -10,85 +10,79 @@
 #import "SetGame.h"
 #import "SetCard.h"
 #import "SetCardDeck.h"
-
-@interface SetGameViewController ()
-
-@end
+#import "SetCardView.h"
+#import "Grid.h"
 
 @implementation SetGameViewController
 
-#pragma mark - Getter & Setter
+@synthesize game = _game;
+
+#pragma mark - Properties
 - (CardGame *)game{
     if(!_game){
-        _game = [[SetGame alloc] initWithCardCount:self.cardButtons.count];
+        _game = [[SetGame alloc] init];
     }
     return _game;
 }
 
 -(SetGame *)setGame{
-    return (SetGame *)_game;
-}
-
-#pragma mark - Methods
-- (UIColor *)getColorFrom:(SCColorType)color{
-    switch (color) {
-        case SCColorRed:
-            return [UIColor redColor];
-            break;
-        case SCColorGreen:
-            return [UIColor greenColor];
-            break;
-        case SCColorPurple:
-            return [UIColor purpleColor];
-            break;
-        default:
-            break;
-    }
-}
-
-- (NSDictionary *)attributesFor:(SetCard *)card {
-    if (!card.isChosen)
-        return nil;
-    UIColor *color = [self getColorFrom:card.color];
-    switch (card.shading) {
-        case SCShadingOpen:
-            return @{ NSStrokeWidthAttributeName : @7,
-                      NSStrokeColorAttributeName : color,
-                      NSForegroundColorAttributeName : color };
-            break;
-        case SCShadingSolid:
-            return @{ NSForegroundColorAttributeName : color };
-            break;
-        case SCShadingStriped:
-            return @{ NSForegroundColorAttributeName : color,
-                      NSStrokeColorAttributeName : [UIColor blackColor],
-                      NSStrokeWidthAttributeName : @-7 };
-            break;
-        default:
-            return nil;
-            break;
-    }
+    return (SetGame *)self.game;
 }
 
 #pragma mark Override
--(Deck *)createDeck{
-    return [[SetCardDeck alloc] init];
+- (CardView *)newCardViewWithFrame:(CGRect)frame { return [[SetCardView alloc] initWithFrame:frame]; }
+
+- (BOOL)mapCard:(Card *)card toView:(CardView *)view {
+    if (![card isKindOfClass:[SetCard class]] ||
+        ![view isKindOfClass:[SetCardView class]]) {
+        return NO;
+    }
+    SetCardView *scView = (SetCardView *)view;
+    SetCard *sCard = (SetCard *)card;
+    scView.symbol = sCard.symbol;
+    scView.shading = sCard.shading;
+    scView.color = sCard.color;
+    scView.number = sCard.number;
+    if (scView.enabled == YES && sCard.isMatched == YES) {
+        scView.enabled = NO;
+        [self popCardView:scView];
+    } else if (!sCard.isMatched) {
+        scView.enabled = YES;
+    }
+    scView.selected = sCard.isChosen;
+    return YES;
 }
 
--(void)updateUI{
-    self.restartButton.hidden = !self.game.isStarted;
-    for (UIButton *cardButton in self.cardButtons) {
-        if ([cardButton isMemberOfClass:[UIButton class]]) {
-            NSUInteger index = [self.cardButtons indexOfObject:cardButton];
-            Card *card = [self.game cardAtIndex:index];
-            [cardButton setAttributedTitle:[[NSAttributedString alloc] initWithString:[self titleForCard:card]
-                                                                           attributes:[self attributesFor:(SetCard *)card]]
-                                  forState:UIControlStateNormal];
-            [cardButton setBackgroundImage:[self backgroundImageForCard:card]
-                                  forState:UIControlStateNormal];
-            cardButton.enabled = !card.isMatched;
-            self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
+#pragma mark - Actions
+#pragma mark Storyboard
+- (IBAction)edgePan:(UIScreenEdgePanGestureRecognizer *)sender { // Testing
+    if (sender.state ==UIGestureRecognizerStateEnded) {
+//        if ([self.setGame requestCards]) {
+//            [self addNewCards];
+//        }
+        [self pushCardView:nil atIndex:3];
+    }
+}
+
+#pragma mark - Operations
+- (void)addNewCards {
+    if (!self.setGame.newCards.count)
+        return;
+    self.grid.minimumNumberOfCells += self.setGame.newCards.count;
+    if (![self.grid inputsAreValid]) {
+        NSLog(@"%@ : Grid Inputs Not Valid", self);
+        return;
+    }
+    for (SetCard *card in self.setGame.newCards) {
+        CGRect frame = CGRectMake(0, 0, self.grid.cellSize.width, self.grid.cellSize.height);
+        SetCardView *newCardView = [[SetCardView alloc] initWithFrame:frame];
+        if (![self mapCard:card toView:newCardView]) {
+            NSLog(@"%@ : CANNOT MAP MODEL TO VIEW", self);
+            return;
         }
+        [self.cardViews addObject:newCardView];
+        NSUInteger index = self.cardViews.count - 1;
+        [self pushCardView:newCardView atIndex:index];
     }
 }
 

@@ -11,7 +11,7 @@
 #import "Card.h"
 
 @interface CardGame()
-
+@property (strong, nonatomic, readwrite) Deck *deck;
 @end
 
 @implementation CardGame
@@ -35,8 +35,9 @@
 -(instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck{
     self = [super init];
     if (self) {
+        self.deck = deck;
         for (int i = 0; i<count; i++) {
-            Card *card = [deck drawRandomCard];
+            Card *card = [self.deck drawRandomCard];
             if (card) {
                 [self.cards addObject:card];
             }else{

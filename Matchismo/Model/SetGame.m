@@ -12,13 +12,24 @@
 
 @implementation SetGame
 
+- (NSArray<SetCard *> *)newCards {
+    NSMutableArray<SetCard *> *result = [NSMutableArray array];
+    for (NSUInteger i = self.cards.count - SET_GAME_REQUEST_NUMBER; i < self.cards.count; i++) {
+        [result addObject:self.cards[i]];
+    }
+    return result;
+}
+
 #pragma mark - Initializer
 - (instancetype)initWithCardCount:(NSUInteger)count{
     self = [super initWithCardCount:count usingDeck:[[SetCardDeck alloc] init]];
     return self;
 }
 
-#pragma mark - Methods
+- (instancetype)init {
+    self = [self initWithCardCount:SET_GAME_INITIAL_NUMBER];
+    return self;
+}
 
 #pragma mark Override
 - (void)chooseCardAtIndex:(NSUInteger)index{
@@ -51,6 +62,18 @@
             self.score -= COST_TO_CHOOSE;
         }
     }
+}
+
+#pragma mark - Operations
+- (BOOL)requestCards {
+    for (int i = 0; i < SET_GAME_REQUEST_NUMBER; i++) {
+        Card *card = [self.deck drawRandomCard];
+        if (!card) {
+            return NO;
+        }
+        [self.cards addObject:card];
+    }
+    return YES;
 }
 
 @end
