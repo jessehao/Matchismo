@@ -7,6 +7,6 @@ This is the **assignment** code for the **Matchismo** project for the Computer S
 | **1** |   Matchismo   | [PDF](https://github.com/jessehao/Matchismo/blob/master/Docs/Developing%20iOS%207%20Apps_%20Assignment%201.pdf) |    NO    | **Done!** |
 | **2** |  Matchismo 2  | [PDF](https://github.com/jessehao/Matchismo/blob/master/Docs/Developing%20iOS%207%20Apps_%20Assignment%202.pdf) |    NO    | **Done!** |
 | **3** |      Set      | [PDF](https://github.com/jessehao/Matchismo/blob/master/Docs/Developing%20iOS%207%20Apps_%20Assignment%203.pdf) |   YES    | **Done!** |
-| **4** | Graphical Set | [PDF](https://github.com/jessehao/Matchismo/blob/master/Docs/Developing%20iOS%207%20Apps_%20Assignment%204.pdf) |    NO    | **Done!** |
+| **4** | Graphical Set | [PDF](https://github.com/jessehao/Matchismo/blob/master/Docs/Developing%20iOS%207%20Apps_%20Assignment%204.pdf) |   YES    | **Done!** |
 
 Watch the project management via [**Trello**](https://trello.com/b/aFZoFPw8)
