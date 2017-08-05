@@ -16,7 +16,7 @@
 
 @implementation CardGame
 
-#pragma mark - Getter & Setter
+#pragma mark - Properties
 -(NSMutableArray *)chosenCards{
     if (!_chosenCards) {
         _chosenCards = [[NSMutableArray alloc] init];
@@ -31,7 +31,7 @@
     return _cards;
 }
 
-#pragma mark - Initializer
+#pragma mark - Initialization
 -(instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck{
     self = [super init];
     if (self) {
@@ -50,7 +50,7 @@
     return self;
 }
 
-#pragma mark - Methods
+#pragma mark - Operations
 
 - (Card *)cardAtIndex:(NSUInteger)index{
     Card *result = nil;
@@ -63,7 +63,7 @@
     return result;
 }
 
-#pragma mark Abstract
+#pragma mark - Abstract
 - (void)chooseCardAtIndex:(NSUInteger)index { return; } //abstract
 
 @end

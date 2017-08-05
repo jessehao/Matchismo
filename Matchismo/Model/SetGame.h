@@ -17,7 +17,7 @@ static const NSUInteger SET_GAME_INITIAL_NUMBER = 12;
 
 @property (strong, nonatomic, readonly) NSArray<SetCard *> *newCards;
 
-#pragma mark - Initializer
+#pragma mark - Initialization
 - (instancetype)initWithCardCount:(NSUInteger)count;
 
 #pragma mark - Operations

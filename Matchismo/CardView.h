@@ -12,10 +12,7 @@ static const CGFloat CARD_VIEW_CORNER_FONT_STANDARD_HEIGHT = 180.0;
 static const CGFloat CARD_VIEW_CORNER_RADIUS = 12.0;
 static const CGFloat CARD_VIEW_RATIO = 5.0 / 8.0;
 
-@interface CardView : UIView {
-    @protected
-    UITapGestureRecognizer *_tapGesture;
-}
+@interface CardView : UIView
 
 @property (strong, nonatomic, readonly) UITapGestureRecognizer *tapGesture;
 @property (nonatomic, getter=isSelected) BOOL selected;

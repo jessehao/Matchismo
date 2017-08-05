@@ -12,7 +12,6 @@
 
 @interface SetGameViewController : CardGameViewController
 
-#pragma mark - Properties
 @property(nonatomic, strong, readonly) SetGame *setGame;
 
 @end

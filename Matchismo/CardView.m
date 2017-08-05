@@ -10,6 +10,8 @@
 
 @implementation CardView
 
+@synthesize tapGesture = _tapGesture;
+
 #pragma mark - Properties
 -(UITapGestureRecognizer *)tapGesture {
     if (!_tapGesture) {

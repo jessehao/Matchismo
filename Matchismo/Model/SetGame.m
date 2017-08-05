@@ -12,6 +12,7 @@
 
 @implementation SetGame
 
+#pragma mark - Properties
 - (NSArray<SetCard *> *)newCards {
     NSMutableArray<SetCard *> *result = [NSMutableArray array];
     for (NSUInteger i = self.cards.count - SET_GAME_REQUEST_NUMBER; i < self.cards.count; i++) {
@@ -20,7 +21,7 @@
     return result;
 }
 
-#pragma mark - Initializer
+#pragma mark - Initialization
 - (instancetype)initWithCardCount:(NSUInteger)count{
     self = [super initWithCardCount:count usingDeck:[[SetCardDeck alloc] init]];
     return self;
@@ -31,7 +32,7 @@
     return self;
 }
 
-#pragma mark Override
+#pragma mark - Override
 - (void)chooseCardAtIndex:(NSUInteger)index{
     self.started = YES;
     Card *card = [self cardAtIndex:index];

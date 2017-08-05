@@ -21,7 +21,7 @@
 
 @synthesize game = _game;
 
-#pragma mark - Getter & Setter
+#pragma mark - Properties
 - (CardGame *)game{
     if (!_game) {
         CardMatchingGame *matchingGame = [[CardMatchingGame alloc] initWithCardCount:PLAYING_CARD_GAME_INITIAL_CARD_NUMBER];

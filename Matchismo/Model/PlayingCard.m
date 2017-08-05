@@ -11,7 +11,7 @@
 
 @implementation PlayingCard
 
-#pragma mark - Getter & Setter
+#pragma mark - Properties
 
 @synthesize suit = _suit;
 
@@ -36,33 +36,7 @@
     return _suit ? _suit : @"?";
 }
 
-#pragma mark - Methods
-+(NSArray *)validSuits{
-    return @[@"♥︎", @"♦︎", @"♠︎", @"♣︎"];
-}
-
-+(NSArray *)rankStrings{
-    return @[@"?", @"A", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"J", @"Q", @"K"];
-}
-
-+(NSUInteger)maxRank{
-    return [self rankStrings].count-1;
-}
-
-//+(Deck *)createPlayingCardDeck{
-//    Deck* deck = [[Deck alloc] init];
-//    for(NSString *suit in [PlayingCard validSuits]){
-//        for( NSUInteger rank = 1; rank <= [PlayingCard maxRank]; rank++){
-//            PlayingCard *card = [[PlayingCard alloc] init];
-//            card.rank = rank;
-//            card.suit = suit;
-//            [deck addCard:card];
-//        }
-//    }
-//    return deck;
-//}
-
-#pragma mark Instance
+#pragma mark - Override
 -(int)match:(NSArray *)otherCards{
     int score = 0;
     for (PlayingCard *card in otherCards) {
@@ -76,6 +50,19 @@
         }
     }
     return score;
+}
+
+#pragma mark - Methods
++(NSArray *)validSuits{
+    return @[@"♥︎", @"♦︎", @"♠︎", @"♣︎"];
+}
+
++(NSArray *)rankStrings{
+    return @[@"?", @"A", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"J", @"Q", @"K"];
+}
+
++(NSUInteger)maxRank{
+    return [self rankStrings].count-1;
 }
 
 @end

@@ -15,8 +15,6 @@
 @end
 
 static const CGFloat STACK_SCALE_FACTOR = 0.75;
-static const CGFloat GRID_SCALE_FACTOR = 0.75;
-static const CGFloat SYMBOL_VIEW_SCALE_FACTOR = 0.75;
 
 @implementation SetCardView
 #pragma mark - Properties

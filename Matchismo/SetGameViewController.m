@@ -50,7 +50,7 @@
 }
 
 #pragma mark - Actions
-#pragma mark Storyboard
+#pragma mark Gestures
 - (IBAction)edgePan:(UIScreenEdgePanGestureRecognizer *)sender {
     if (sender.state ==UIGestureRecognizerStateEnded) {
         if ([self.setGame requestCards]) {

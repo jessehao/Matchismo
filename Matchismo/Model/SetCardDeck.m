@@ -11,7 +11,7 @@
 
 @implementation SetCardDeck
 
-#pragma mark - Initializer
+#pragma mark - Initialization
 -(instancetype)init {
     self = [super init];
     if(self)

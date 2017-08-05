@@ -16,7 +16,7 @@
 
 @implementation CardMatchingGame
 
-#pragma mark - Getter & Setter
+#pragma mark - Properties
 @synthesize matchCount = _matchCount;
 
 - (void)setMatchCount:(NSUInteger)matchCount{
@@ -37,16 +37,13 @@
     return _matchCount;
 }
 
-#pragma mark - Initializer
+#pragma mark - Initialization
 - (instancetype)initWithCardCount:(NSUInteger)count{
     self = [super initWithCardCount:count usingDeck:[[PlayingCardDeck alloc] init]];
     return self;
 }
 
-#pragma mark - Methods
-
-
-#pragma mark Override
+#pragma mark - Override
 - (void)chooseCardAtIndex:(NSUInteger)index{
     self.started = YES;
     Card *card = [self cardAtIndex:index];

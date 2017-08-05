@@ -10,13 +10,13 @@
 #import "../Enums.h"
 
 @interface SetCard : Card
-#pragma mark - Properties
+
 @property(nonatomic, readonly) NSUInteger number;
 @property(nonatomic, readonly) SCSymbolType symbol;
 @property(nonatomic, readonly) SCShadingType shading;
 @property(nonatomic, readonly) SCColorType color;
 
-#pragma mark - Initializer
+#pragma mark - Initialization
 - (instancetype)initWithNumber:(NSUInteger)number
                         symbol:(SCSymbolType)symbol
                        shading:(SCShadingType)shading

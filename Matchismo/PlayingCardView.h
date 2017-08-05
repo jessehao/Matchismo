@@ -6,7 +6,6 @@
 //  Copyright © 2017年 JH. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "CardView.h"
 
 @interface PlayingCardView : CardView

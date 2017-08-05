@@ -18,14 +18,13 @@ static const int MISMATCH_PENALTY = 2;
 
 @interface CardGame : NSObject
 
-#pragma mark - Properties
 @property (nonatomic) NSInteger score;
 @property (strong, nonatomic) NSMutableArray *cards;
 @property (strong, nonatomic) NSMutableArray *chosenCards;
 @property (nonatomic, getter=isStarted) BOOL started;
 @property (strong, nonatomic, readonly) Deck *deck;
 
-#pragma mark - Initializer
+#pragma mark - Initialization
 //designate initializer
 -(instancetype)initWithCardCount: (NSUInteger)count
                        usingDeck: (Deck *) deck;
@@ -33,7 +32,7 @@ static const int MISMATCH_PENALTY = 2;
 #pragma mark - Methods
 -(Card *)cardAtIndex: (NSUInteger)index;
 
-#pragma mark Abstract
--(void)chooseCardAtIndex: (NSUInteger)index;    // abstract
+#pragma mark - Abstract
+-(void)chooseCardAtIndex: (NSUInteger)index;
 
 @end

@@ -22,7 +22,7 @@
     return true;
 }
 
-#pragma mark - Initializer
+#pragma mark - Initialization
 - (instancetype)initWithNumber:(NSUInteger)number
                         symbol:(SCSymbolType)symbol
                        shading:(SCShadingType)shading
@@ -39,7 +39,7 @@
     return self;
 }
 
-#pragma mark Instance
+#pragma mark - Override
 - (int)match:(NSArray *)otherCards{
     SetCard *firstCard = (SetCard *)otherCards.firstObject;
     SetCard *lastCard = (SetCard *)otherCards.lastObject;

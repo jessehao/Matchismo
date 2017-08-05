@@ -14,7 +14,7 @@
 
 @implementation Card
 
-#pragma mark - Methods
+#pragma mark - Operations
 - (int)match:(NSArray *)otherCards{
     int score = 0;
     for(Card* card in otherCards){

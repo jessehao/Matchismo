@@ -30,7 +30,7 @@
 #pragma mark - Operations
 - (void)updateUI;
 
-#pragma mark Abstract
+#pragma mark - Abstract
 - (CardView *)newCardViewWithFrame:(CGRect)frame;
 - (void)setup;
 - (BOOL)mapCard:(Card *)card toView:(CardView *)view;

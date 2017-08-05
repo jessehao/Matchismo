@@ -14,7 +14,6 @@ static const NSUInteger PLAYING_CARD_GAME_INITIAL_CARD_NUMBER = 30;
 
 @interface PlayingCardGameViewController : CardGameViewController
 
-#pragma mark - Properties
 @property(nonatomic, strong, readonly) CardMatchingGame *matchingGame;
 
 @end

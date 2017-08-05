@@ -10,10 +10,9 @@
 
 @interface CardMatchingGame : CardGame
 
-#pragma mark - Properties
 @property(nonatomic) NSUInteger matchCount;
 
-#pragma mark - Initializer
+#pragma mark - Initialization
 - (instancetype)initWithCardCount:(NSUInteger)count;
 
 @end

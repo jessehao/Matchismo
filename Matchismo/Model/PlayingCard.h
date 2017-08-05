@@ -18,6 +18,5 @@
 #pragma mark - Methods
 +(NSArray *)validSuits;
 +(NSUInteger)maxRank;
-//+(Deck *)createPlayingCardDeck;
 
 @end
