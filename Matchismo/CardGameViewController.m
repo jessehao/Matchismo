@@ -13,21 +13,16 @@
 #import "Card.h"
 #import "Grid.h"
 
+//principle: cardViewsToRemove <= boardView.subviews <= cardViews <= game.cards
+
 @interface CardGameViewController ()
 @property (strong, nonatomic, readwrite) Grid  *grid;
 @property (strong, nonatomic) NSMutableArray<__kindof CardView *> *cardViewsToRemove;
+@property (nonatomic, getter=isAllowInteract) BOOL allowInteract;
+@property (nonatomic, getter=isPinched) BOOL pinched;
 @end
 
 @implementation CardGameViewController
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self commonSetup];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self updateUI];
-}
 
 #pragma mark - Properties
 
@@ -80,26 +75,50 @@
 - (Grid *)grid {
     if (!_grid) {
         _grid = [[Grid alloc] init];
+        _grid.size = self.boardView.bounds.size;
+        _grid.cellAspectRatio = CARD_VIEW_RATIO;
+        _grid.minimumNumberOfCells = 0;
     }
     return _grid;
 }
 
+#pragma mark - Lifecycle
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self commonSetup];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self updateUI];
+}
+
 #pragma mark - Initialization
 - (void) commonSetup {
-    [self setupGrid];
+    [self.boardView addGestureRecognizer:[[UIPinchGestureRecognizer alloc] initWithTarget:self
+                                                                                   action:@selector(pinchOnBoard:)]];
+    self.pinched = NO;
+    self.allowInteract = YES;
     [self setup];
 }
 
-- (void)setupGrid {
-    self.grid.size = self.boardView.bounds.size;
-    self.grid.cellAspectRatio = CARD_VIEW_RATIO;
-    self.grid.minimumNumberOfCells = 0;
+#pragma mark - Actions
+- (IBAction)touchRestartButton:(UIButton *)sender {
+    [self clear];
+    [self updateUI];
 }
 
-#pragma mark - Actions
+#pragma mark Gestures
 - (void)tapOnCard:(UITapGestureRecognizer *)gesture {
+    if (!self.isAllowInteract) {
+        return;
+    }
     if (![gesture.view isKindOfClass:[CardView class]]) {
         NSLog(@"The Sender of Tap Gesture is NOT CardView");
+        return;
+    }
+    if (self.isPinched) {
+        [self updateBoard];
         return;
     }
     CardView *cardView = (CardView *)gesture.view;
@@ -108,10 +127,30 @@
     [self updateUI];
 }
 
-#pragma mark StoryBoard
-- (IBAction)touchRestartButton:(UIButton *)sender {
-    self.game = nil;
-    [self updateUI];
+- (void)pinchOnBoard:(UIPinchGestureRecognizer *)gesture {
+    if (!self.isAllowInteract) {
+        return;
+    }
+    if (gesture.state == UIGestureRecognizerStateEnded) {
+        if (gesture.numberOfTouches == 2) {
+            CGPoint a = [gesture locationOfTouch:0 inView:self.boardView];
+            CGPoint b = [gesture locationOfTouch:1 inView:self.boardView];
+            CGPoint center = CGPointMake((a.x + b.x) / 2, (a.y + b.y) / 2);
+            [UIView animateWithDuration:0.5 animations:^{
+                for (CardView *view in self.boardView.subviews) {
+                    view.center = center;
+                }
+            } completion:^(BOOL finished) {
+                self.pinched = YES;
+            }];
+        }
+    }
+}
+
+#pragma mark Device Rotation
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    self.grid.size = self.boardView.bounds.size;
+    [self updateBoard];
 }
 
 #pragma mark - Operations
@@ -129,6 +168,7 @@
 }
 
 - (void)updateBoard {
+    self.allowInteract = NO;
     [UIView animateWithDuration:0.3
                      animations:^{
                          for (int i = 0, j = 0; i < self.boardView.subviews.count; i++) {
@@ -149,6 +189,8 @@
                              [view removeFromSuperview];
                          }
                          [self.cardViewsToRemove removeAllObjects];
+                         self.pinched = NO;
+                         self.allowInteract = YES;
                      }];
 }
 
@@ -166,7 +208,16 @@
     return CGPointMake(x, y);
 }
 
-#pragma mark Abstract
+- (void)clear {
+    for (CardView *view in self.boardView.subviews) {
+        [view removeFromSuperview];
+    }
+    [self.cardViews removeAllObjects];
+    self.game = nil;
+    self.grid = nil;
+}
+
+#pragma mark - Abstract
 - (CardView *)newCardViewWithFrame:(CGRect)frame { return [[CardView alloc] initWithFrame:frame]; }
 - (void)setup { return; }
 - (BOOL)mapCard:(Card *)card toView:(CardView *)view { return NO; }
