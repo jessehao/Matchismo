@@ -179,7 +179,7 @@
                 <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="h0T-0h-7bq">
                     <rectEdge key="edges" right="YES"/>
                     <connections>
-                        <action selector="edgePan:" destination="Xrc-lY-gNA" id="NgR-xc-ck4"/>
+                        <action selector="edgePan:" destination="Xrc-lY-gNA" id="SjT-eQ-Olk"/>
                     </connections>
                 </screenEdgePanGestureRecognizer>
             </objects>

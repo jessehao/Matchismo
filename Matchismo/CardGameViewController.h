@@ -29,13 +29,10 @@
 
 #pragma mark - Operations
 - (void)updateUI;
-- (void)pushCardView:(CardView *)cardView atIndex:(NSUInteger)index;
-- (BOOL)popCardView:(CardView *)cardView;
 
 #pragma mark Abstract
 - (CardView *)newCardViewWithFrame:(CGRect)frame;
 - (void)setup;
-- (void)setupBoard;
 - (BOOL)mapCard:(Card *)card toView:(CardView *)view;
 
 @end

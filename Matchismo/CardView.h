@@ -18,8 +18,8 @@ static const CGFloat CARD_VIEW_RATIO = 5.0 / 8.0;
 }
 
 @property (strong, nonatomic, readonly) UITapGestureRecognizer *tapGesture;
-@property (nonatomic) BOOL selected;
-@property (nonatomic) BOOL enabled;
+@property (nonatomic, getter=isSelected) BOOL selected;
+@property (nonatomic, getter=isEnabled) BOOL enabled;
 
 - (void)setup;
 - (CGFloat)cornerScaleFactor;

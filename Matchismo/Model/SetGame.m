@@ -47,7 +47,6 @@
                         card.matched = YES;
                     self.score += MATCH_BONUS * 5;
                     [self.chosenCards removeAllObjects];
-                    
                 }
                 else{
                     for(Card *chosenCard in self.chosenCards){
