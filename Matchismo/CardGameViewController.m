@@ -158,6 +158,10 @@
 - (void)updateUI {
     BOOL isNeedForUpdateBoard = NO;
     self.restartButton.hidden = !self.game.isStarted;
+    if (![self is:self.grid.size equalTo:self.boardView.bounds.size]) {
+        self.grid.size = self.boardView.bounds.size;
+        isNeedForUpdateBoard |= YES;
+    }
     isNeedForUpdateBoard |= self.isNeedForAddToBoard;
     [self mapping];
     isNeedForUpdateBoard |= self.isNeedForRemoveFromBoard;
@@ -215,6 +219,10 @@
     [self.cardViews removeAllObjects];
     self.game = nil;
     self.grid = nil;
+}
+
+- (BOOL)is:(CGSize)size1 equalTo:(CGSize)size2 {
+    return size1.height == size2.height && size1.width == size2.width;
 }
 
 #pragma mark - Abstract
