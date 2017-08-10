@@ -7,8 +7,6 @@ This is the **assignment** code for the **Matchismo** project for the Computer S
 | :----: | :-----: | :---------------: |
 | `10.3` | iPhone  |        NO         |
 
-
-
 # Progress
 |  Num  |     Name      |               Requirement                | Released |  Status   |
 | :---: | :-----------: | :--------------------------------------: | :------: | :-------: |
