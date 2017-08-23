@@ -13,6 +13,8 @@
 static const NSUInteger SET_GAME_REQUEST_NUMBER = 3;
 static const NSUInteger SET_GAME_INITIAL_NUMBER = 12;
 
+static const int COST_TO_REQUEST_ONE = 1;
+
 @interface SetGame : CardGame
 
 @property (strong, nonatomic, readonly) NSArray<SetCard *> *newCards;

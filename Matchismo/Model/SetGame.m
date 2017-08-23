@@ -72,6 +72,7 @@
             return NO;
         }
         [self.cards addObject:card];
+		self.score -= COST_TO_REQUEST_ONE;
     }
     return YES;
 }
